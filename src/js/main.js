@@ -2,7 +2,7 @@ function updateParkInfo(){
     document.getElementById("parkName").textContent = "Yellowstone"
     document.querySelector("#parkType").textContent = "National Park"
     document.getElementById("parkStates").innerHTML = "ID, WY, MT"
-    document.getElementById("heroImg").src = "public/images/yellowstone.jpg"
+    document.getElementById("heroImg").src = "images/yellowstone.jpg"
 }
 
 function addEventListeners() {
@@ -30,7 +30,7 @@ function addEventListeners() {
     });
 
     overview.addEventListener("mouseleave", () => {
-      overview.classList.remove("overlay-hover");
+      overview.classList.remove("overlay-hover");   
     });
   }
 }
