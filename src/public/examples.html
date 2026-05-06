@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <label>
+        <input type="checkbox" id="checkbox">
+    </label>
+    <div id="checkboxTxt">The Park is Closed</div>
+<script>
+    const checkbox = document.getElementById("checkbox")
+    const checkboxTxt = document.getElementById("checkboxTxt")
+    checkbox.addEventListener("change", () => {
+        const isOpen = checkbox.checked
+        checkboxTxt.textContent = isOpen ? "The Park is Open" : "The Park is Closed"
+    })
+    
+</script>
+</body>
+</html>
