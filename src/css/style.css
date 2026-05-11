@@ -41,7 +41,7 @@ header nav {
 }
 
 #header-menu-options {
-  position: absolute; /* optional if your layout needs it */
+  position: absolute;
   z-index: 10;
   background-color: var(--header-color);
 }
@@ -57,7 +57,6 @@ header nav {
   cursor: pointer;  border-bottom: 1px solid var(--background-color);
 }
 
-/* Default overlay color from your plan */
 #parkInfo {
   background-color: var(--accent-color);
 }
@@ -117,6 +116,52 @@ header nav {
   text-decoration: underline;
   margin-block-start: 0em;
   margin-block-end: 0em;
+}
+
+#promotions {
+  border: 1px solid black;
+  background-color: #f3f1ea;
+  padding: 1rem;
+}
+
+#promotions h2,
+#promotions p {
+  margin: 0.25rem 0;
+}
+
+#header-maps-link,
+#park-maps-link {
+  cursor: pointer;
+}
+
+#map-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background-color: rgba(0, 0, 0, 0.55);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
+
+#map-modal.is-hidden {
+  display: none;
+}
+
+#map-modal-content {
+  background-color: white;
+  border: 1px solid black;
+  width: min(900px, 95vw);
+  padding: 0.75rem;
+}
+
+#map-modal-close {
+  float: right;
+  border: 1px solid black;
+  background-color: white;
+  cursor: pointer;
+  margin-bottom: 0.5rem;
 }
 
 footer {
