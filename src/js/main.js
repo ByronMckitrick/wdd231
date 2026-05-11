@@ -11,7 +11,7 @@ function addEventListeners() {
   const overview = document.querySelector("#ParkInfo");
 
   // MENU toggle
-  if (menuTrigger && menuOptions) { // Don't add these listeners if the elements don't exist
+  if (menuTrigger && menuOptions) {
     menuTrigger.addEventListener("click", () => {
       menuOptions.classList.toggle("is-hidden");
     });
@@ -24,7 +24,7 @@ function addEventListeners() {
   }
 
   // Overlay hover color toggle
-  if (overview) { // Don't add these listeners if the element doesn't exist
+  if (overview) {
     overview.addEventListener("mouseenter", () => {
       overview.classList.add("overlay-hover");
     });
