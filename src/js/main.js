@@ -1,17 +1,79 @@
-function updateParkInfo(){
-    document.getElementById("parkName").textContent = "Yellowstone"
-    document.querySelector("#parkType").textContent = "National Park"
-    document.getElementById("parkStates").innerHTML = "ID, WY, MT"
-    document.getElementById("heroImg").src = "images/yellowstone.jpg"
+const MENU_DATA_URL = "./public/data/menu.json";
+
+function loadParkData() {
+  document.getElementById("parkName").textContent = "Yellowstone";
+  document.getElementById("parkType").textContent = "National Park";
+  document.getElementById("parkStates").textContent = "WY, ID, MT";
+  document.querySelector("#park-image").src = "./images/yellowstone.jpg";
+}
+
+function buildHeaderMenuWithThen() {
+  // Find the <ul> where header menu items will be inserted.
+  const headerMenuList = document.querySelector("#header-menu-options ul");
+  // If the target does not exist on this page, stop.
+  if (!headerMenuList) return;
+
+  // Load the JSON data, then build each <li> from menu items.
+  fetch(MENU_DATA_URL)
+    .then((response) => response.json())
+    .then((data) => {
+      // Clear any existing static or previous menu content.
+      headerMenuList.innerHTML = "";
+
+      // Create one <li> per menu item from JSON.
+      data.menu.forEach((item) => {
+        const li = document.createElement("li");
+        li.textContent = item.name;
+        li.dataset.menuId = item.id;
+        li.dataset.href = item.href;
+
+        // Preserve the special ID used by map modal logic.
+        if (item.id === "maps") {
+          li.id = "header-maps-link";
+        }
+
+        headerMenuList.appendChild(li);
+      });
+    });
+}
+
+async function buildParkMenuWithAsyncAwait() {
+  // Find the <ul> where park-menu items will be inserted.
+  const parkMenuList = document.querySelector("#park-menu ul");
+  // If the target does not exist on this page, stop.
+  if (!parkMenuList) return;
+
+  // Wait for menu JSON data.
+  const response = await fetch(MENU_DATA_URL);
+  const data = await response.json();
+
+  // Build all menu HTML at once using a template string.
+  parkMenuList.innerHTML = data.menu
+    .map(
+      (item) => `
+        <li
+          ${item.id === "maps" ? 'id="park-maps-link"' : ""}
+          data-menu-id="${item.id}"
+          data-href="${item.href}">
+          <p>${item.name}</p>
+          <p>
+            <svg>
+              <use href="${item.iconUrl}"></use>
+            </svg>
+          </p>
+        </li>
+      `
+    )
+    .join("");
 }
 
 function addEventListeners() {
   const menuTrigger = document.querySelector("#header-menu-trigger");
   const menuOptions = document.querySelector("#header-menu-options");
-  const overview = document.querySelector("#ParkInfo");
+  const overview = document.querySelector("#overview");
 
   // MENU toggle
-  if (menuTrigger && menuOptions) {
+  if (menuTrigger && menuOptions) { // Don't add these listeners if the elements don't exist
     menuTrigger.addEventListener("click", () => {
       menuOptions.classList.toggle("is-hidden");
     });
@@ -24,20 +86,20 @@ function addEventListeners() {
   }
 
   // Overlay hover color toggle
-  if (overview) {
+  if (overview) { // Don't add these listeners if the element doesn't exist
     overview.addEventListener("mouseenter", () => {
       overview.classList.add("overlay-hover");
     });
 
     overview.addEventListener("mouseleave", () => {
-      overview.classList.remove("overlay-hover");   
+      overview.classList.remove("overlay-hover");
     });
   }
 }
 
 function setupMapModalAndPromotions() {
-  const headerMapsLink = document.getElementById("header_maps_link");
-  const parkMapsLink = document.getElementById("park_maps_link");
+  const headerMapsLink = document.getElementById("header-maps-link");
+  const parkMapsLink = document.getElementById("park-maps-link");
   const mapModal = document.getElementById("map-modal");
   const mapModalClose = document.getElementById("map-modal-close");
   const promotionMessage = document.getElementById("promotion-message");
@@ -78,6 +140,12 @@ function setupMapModalAndPromotions() {
   }
 }
 
-updateParkInfo()
-addEventListeners();
-setupMapModalAndPromotions();
+async function init() {
+  loadParkData();
+  buildHeaderMenuWithThen();
+  await buildParkMenuWithAsyncAwait();
+  addEventListeners();
+  setupMapModalAndPromotions();
+}
+
+init();
