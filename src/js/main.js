@@ -1,4 +1,4 @@
-const MENU_DATA_URL = "./public/data/menu.json";
+const MENU_DATA_URL = "./data/menu.json";
 
 function loadParkData() {
   document.getElementById("parkName").textContent = "Yellowstone";
