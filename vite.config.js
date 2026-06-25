@@ -11,8 +11,8 @@ export default defineConfig({
     outDir: "../dist",
     rollupOptions: {
       input: {
-        main: resolve(__dirname, "src/index.html"),
-        keytest: resolve(__dirname, "src/key-test.html")
+        main: resolve(__dirname, "src/index.html")
+        // keytest: resolve(__dirname, "src/key-test.html")
       }
     }
   }
